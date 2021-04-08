@@ -6,15 +6,20 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 import AppProvider from "./core/containers/AppProvider";
 import AppRoute from "./core/containers/router";
+import Boot from './redux/boot';
 
-ReactDOM.render(
-  <Provider store={store}>
-    <AppProvider>
-        <AppRoute/>
-    </AppProvider>
-  </Provider>,
-  document.getElementById('root')
-);
+const App = () => (
+    <Provider store={store}>
+        <AppProvider>
+            <AppRoute/>
+        </AppProvider>
+    </Provider>
+)
+Boot()
+    .then(() => App())
+    .catch(error => console.error(error));
+
+ReactDOM.render(<App/>,  document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
